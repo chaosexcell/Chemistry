@@ -303,7 +303,7 @@
         }
 
         .pillar-stem, .pillar-branch {
-            font-size: 2.2rem;
+            font-size: 1.6rem;
             font-weight: 900;
             line-height: 1.1;
         }
@@ -510,14 +510,9 @@
         /* 2인 궁합(우주적 궤도 융합) 전용 프리미엄 스타일 */
         .saju-dual-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr; /* 가로 대조 시 찌그러짐 방지를 위해 위아래 행(Row) 구조로 큼직하게 1열 배치 */
             gap: 1.5rem;
             margin-top: 1rem;
-        }
-        @media (max-width: 768px) {
-            .saju-dual-grid {
-                grid-template-columns: 1fr;
-            }
         }
         
         .partnership-form-toggle {
@@ -913,49 +908,6 @@
             <div class="result-grid">
                 <!-- 좌측 컬럼: 사주 원국표 및 오행 분포 -->
                 <div style="display: flex; flex-direction: column; gap: 2rem;">
-                    <!-- 사주 원국 동적 컨테이너 -->
-                    <div id="saju-pillars-container">
-                        <!-- 사주 원국 카드 -->
-                        <div class="glass-card">
-                            <h3 class="card-title"><i class="fa-solid fa-table-cells-large"></i>사주 원국 (四柱元局)</h3>
-                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">오른쪽에서 왼쪽으로 연주, 월주, 일주, 시주 순으로 해석합니다.</p>
-                            
-                            <div class="pillar-table">
-                                <!-- 시주 -->
-                                <div class="pillar-card">
-                                    <span class="pillar-header">시주 (時柱)</span>
-                                    <span class="pillar-god" id="god-hour-gan" style="color: var(--primary);">상관</span>
-                                    <span class="pillar-stem" id="gan-hour">갑</span>
-                                    <span class="pillar-branch" id="zhi-hour">자</span>
-                                    <span class="pillar-god" id="god-hour-zhi">비견</span>
-                                </div>
-                                <!-- 일주 -->
-                                <div class="pillar-card" style="border-color: rgba(192,132,252,0.4); background: rgba(192,132,252,0.05);">
-                                    <span class="pillar-header" style="color: var(--primary);">일주 (日柱·본인)</span>
-                                    <span class="pillar-god" style="background: var(--primary); color: #000; font-weight: 800;">나(日干)</span>
-                                    <span class="pillar-stem" id="gan-day">을</span>
-                                    <span class="pillar-branch" id="zhi-day">축</span>
-                                    <span class="pillar-god" id="god-day-zhi">편재</span>
-                                </div>
-                                <!-- 월주 -->
-                                <div class="pillar-card">
-                                    <span class="pillar-header">월주 (月柱)</span>
-                                    <span class="pillar-god" id="god-month-gan">정인</span>
-                                    <span class="pillar-stem" id="gan-month">병</span>
-                                    <span class="pillar-branch" id="zhi-month">인</span>
-                                    <span class="pillar-god" id="god-month-zhi">겁재</span>
-                                </div>
-                                <!-- 년주 -->
-                                <div class="pillar-card">
-                                    <span class="pillar-header">년주 (年柱)</span>
-                                    <span class="pillar-god" id="god-year-gan">정관</span>
-                                    <span class="pillar-stem" id="gan-year">무</span>
-                                    <span class="pillar-branch" id="zhi-year">술</span>
-                                    <span class="pillar-god" id="god-year-zhi">정재</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- 오행 차트 카드 -->
                     <div class="glass-card">
@@ -1070,6 +1022,50 @@
                         <button class="tab-btn" onclick="switchTab('tab-luck')"><i class="fa-solid fa-hourglass-half"></i> 평생/대운</button>
                         <button class="tab-btn" onclick="switchTab('tab-gmhs')"><i class="fa-solid fa-calendar-day"></i> 근묘화실</button>
                         <button class="tab-btn" onclick="switchTab('tab-today')"><i class="fa-solid fa-bolt"></i> 오늘의운</button>
+                    </div>
+
+                    <!-- 사주 원국 동적 컨테이너 (3번째 그림인 탭바 바로 아래로 정교하게 이식) -->
+                    <div id="saju-pillars-container" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+                        <!-- 사주 원국 카드 -->
+                        <div class="glass-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(192, 132, 252, 0.08); padding: 1.8rem;">
+                            <h3 class="card-title"><i class="fa-solid fa-table-cells-large"></i>사주 원국 (四柱元局)</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">오른쪽에서 왼쪽으로 연주, 월주, 일주, 시주 순으로 해석합니다.</p>
+                            
+                            <div class="pillar-table">
+                                <!-- 시주 -->
+                                <div class="pillar-card">
+                                    <span class="pillar-header">시주 (時柱)</span>
+                                    <span class="pillar-god" id="god-hour-gan" style="color: var(--primary);">상관</span>
+                                    <span class="pillar-stem" id="gan-hour">갑</span>
+                                    <span class="pillar-branch" id="zhi-hour">자</span>
+                                    <span class="pillar-god" id="god-hour-zhi">비견</span>
+                                </div>
+                                <!-- 일주 -->
+                                <div class="pillar-card" style="border-color: rgba(192,132,252,0.4); background: rgba(192,132,252,0.05);">
+                                    <span class="pillar-header" style="color: var(--primary);">일주 (日柱·본인)</span>
+                                    <span class="pillar-god" style="background: var(--primary); color: #000; font-weight: 800;">나(日干)</span>
+                                    <span class="pillar-stem" id="gan-day">을</span>
+                                    <span class="pillar-branch" id="zhi-day">축</span>
+                                    <span class="pillar-god" id="god-day-zhi">편재</span>
+                                </div>
+                                <!-- 월주 -->
+                                <div class="pillar-card">
+                                    <span class="pillar-header">월주 (月柱)</span>
+                                    <span class="pillar-god" id="god-month-gan">정인</span>
+                                    <span class="pillar-stem" id="gan-month">병</span>
+                                    <span class="pillar-branch" id="zhi-month">인</span>
+                                    <span class="pillar-god" id="god-month-zhi">겁재</span>
+                                </div>
+                                <!-- 년주 -->
+                                <div class="pillar-card">
+                                    <span class="pillar-header">년주 (年柱)</span>
+                                    <span class="pillar-god" id="god-year-gan">정관</span>
+                                    <span class="pillar-stem" id="gan-year">무</span>
+                                    <span class="pillar-branch" id="zhi-year">술</span>
+                                    <span class="pillar-god" id="god-year-zhi">정재</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- 탭 컨텐츠 0: 우주적 궤도 융합 심층 해독 -->
@@ -1325,8 +1321,23 @@
         }
 
         // --- 3. JS 명리학 사주 엔진 (SajuLogic) 구현 ---
-        const CHEONGAN = ['갑', '을', '병', '정', '무', '기', '경', '신', '임', '계'];
-        const JIJI = ['자', '축', '인', '묘', '진', '사', '오', '미', '신', '유', '술', '해'];
+        const CHEONGAN = ['갑(甲)', '을(乙)', '병(丙)', '정(丁)', '무(戊)', '기(己)', '경(庚)', '신(辛)', '임(壬)', '계(癸)'];
+        const JIJI = ['자(子)', '축(丑)', '인(寅)', '묘(卯)', '진(辰)', '사(巳)', '오(午)', '미(未)', '신(申)', '유(酉)', '술(戌)', '해(亥)'];
+        const CHEONGAN_HANJA = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+        const JIJANGGAN_DATA = [
+            [8, 9],       // 자: 임, 계
+            [9, 7, 5],    // 축: 계, 신, 기
+            [4, 2, 0],    // 인: 무, 병, 갑
+            [0, 1],       // 묘: 갑, 을
+            [1, 9, 4],    // 진: 을, 계, 무
+            [4, 6, 2],    // 사: 무, 경, 병
+            [2, 5, 3],    // 오: 병, 기, 정
+            [3, 1, 5],    // 미: 정, 을, 기
+            [4, 8, 6],    // 신: 무, 임, 경
+            [6, 7],       // 유: 경, 신
+            [7, 3, 4],    // 술: 신, 정, 무
+            [4, 0, 8]     // 해: 무, 갑, 임
+        ];
         const STEM_OHAENG = ['wood', 'wood', 'fire', 'fire', 'earth', 'earth', 'metal', 'metal', 'water', 'water'];
         const BRANCH_OHAENG = ['water', 'earth', 'wood', 'wood', 'earth', 'fire', 'fire', 'earth', 'metal', 'metal', 'earth', 'water'];
         const ZHI_POLARITIES = [1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0]; // 지지 음양 보정 (0=양, 1=음)
@@ -1698,6 +1709,29 @@
 
         // --- 2인 궁합 (우주적 궤도 융합) 명리학 헬퍼 함수군 ---
         
+        // 지장간 마크업 생성
+        function getJijangganHTML(zhiIdx, dayMasterGanIdx) {
+            const myElementIdx = Math.floor(dayMasterGanIdx / 2);
+            const myPolarity = dayMasterGanIdx % 2;
+            const stems = JIJANGGAN_DATA[zhiIdx];
+            
+            let html = `<div class="jijanggan-container" style="display: flex; gap: 0.25rem; justify-content: center; margin: 0.4rem auto; padding: 0.2rem 0.15rem; background: rgba(0, 0, 0, 0.2); border-radius: 4px; width: 90%; max-width: 100px;">`;
+            stems.forEach(stemIdx => {
+                const name = CHEONGAN_HANJA[stemIdx];
+                const element = STEM_OHAENG[stemIdx];
+                const god = determineGod(myElementIdx, Math.floor(stemIdx / 2), myPolarity, stemIdx % 2);
+                
+                html += `
+                    <div class="jijanggan-item" style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 22px;">
+                        <span class="${element}-color" style="font-weight: 700; font-size: 0.72rem; line-height: 1;">${name}</span>
+                        <span style="color: rgba(255, 255, 255, 0.45); font-size: 0.52rem; line-height: 1; margin-top: 0.1rem; transform: scale(0.9); transform-origin: top center; white-space: nowrap;">${god}</span>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            return html;
+        }
+
         // 1인 단독 사주 원국표 마크업 생성
         function getSinglePillarHTML(pillars, name) {
             const dayMasterGanIdx = pillars.day.gan_idx;
@@ -1712,7 +1746,7 @@
             };
 
             return `
-                <div class="glass-card">
+                <div class="glass-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(192, 132, 252, 0.08); padding: 1.8rem;">
                     <h3 class="card-title"><i class="fa-solid fa-table-cells-large"></i>사주 원국 (四柱元局) - ${name} 님</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">오른쪽에서 왼쪽으로 연주, 월주, 일주, 시주 순으로 해석합니다.</p>
                     <div class="pillar-table">
@@ -1722,6 +1756,7 @@
                             <span class="pillar-god ${pillars.hour.gan_element}-color" id="god-hour-gan">${getGod(pillars.hour, 'gan')}</span>
                             <span class="pillar-stem ${pillars.hour.gan_element}-color" id="gan-hour">${pillars.hour.gan}</span>
                             <span class="pillar-branch ${pillars.hour.zhi_element}-color" id="zhi-hour">${pillars.hour.zhi}</span>
+                            ${getJijangganHTML(pillars.hour.zhi_idx, dayMasterGanIdx)}
                             <span class="pillar-god" id="god-hour-zhi">${getGod(pillars.hour, 'zhi')}</span>
                         </div>
                         <!-- 일주 -->
@@ -1730,6 +1765,7 @@
                             <span class="pillar-god" style="background: var(--primary); color: #000; font-weight: 800;">나(日干)</span>
                             <span class="pillar-stem ${pillars.day.gan_element}-color" id="gan-day">${pillars.day.gan}</span>
                             <span class="pillar-branch ${pillars.day.zhi_element}-color" id="zhi-day">${pillars.day.zhi}</span>
+                            ${getJijangganHTML(pillars.day.zhi_idx, dayMasterGanIdx)}
                             <span class="pillar-god" id="god-day-zhi">${getGod(pillars.day, 'zhi')}</span>
                         </div>
                         <!-- 월주 -->
@@ -1738,6 +1774,7 @@
                             <span class="pillar-god" id="god-month-gan">${getGod(pillars.month, 'gan')}</span>
                             <span class="pillar-stem ${pillars.month.gan_element}-color" id="gan-month">${pillars.month.gan}</span>
                             <span class="pillar-branch ${pillars.month.zhi_element}-color" id="zhi-month">${pillars.month.zhi}</span>
+                            ${getJijangganHTML(pillars.month.zhi_idx, dayMasterGanIdx)}
                             <span class="pillar-god" id="god-month-zhi">${getGod(pillars.month, 'zhi')}</span>
                         </div>
                         <!-- 년주 -->
@@ -1746,6 +1783,7 @@
                             <span class="pillar-god" id="god-year-gan">${getGod(pillars.year, 'gan')}</span>
                             <span class="pillar-stem ${pillars.year.gan_element}-color" id="gan-year">${pillars.year.gan}</span>
                             <span class="pillar-branch ${pillars.year.zhi_element}-color" id="zhi-year">${pillars.year.zhi}</span>
+                            ${getJijangganHTML(pillars.year.zhi_idx, dayMasterGanIdx)}
                             <span class="pillar-god" id="god-year-zhi">${getGod(pillars.year, 'zhi')}</span>
                         </div>
                     </div>
@@ -1779,32 +1817,36 @@
                             <div class="pillar-card" style="padding: 0.8rem 0.2rem;">
                                 <span class="pillar-header" style="font-size: 0.75rem;">시주</span>
                                 <span class="pillar-god" style="font-size: 0.75rem; padding: 0.1rem 0.3rem;">${getGod(pillars, pillars.hour, 'gan', dayMasterGanIdx, myElementIdx, myPolarity)}</span>
-                                <span class="pillar-stem ${pillars.hour.gan_element}-color" style="font-size: 1.8rem;">${pillars.hour.gan}</span>
-                                <span class="pillar-branch ${pillars.hour.zhi_element}-color" style="font-size: 1.8rem;">${pillars.hour.zhi}</span>
+                                <span class="pillar-stem ${pillars.hour.gan_element}-color" style="font-size: 1.4rem;">${pillars.hour.gan}</span>
+                                <span class="pillar-branch ${pillars.hour.zhi_element}-color" style="font-size: 1.4rem;">${pillars.hour.zhi}</span>
+                                ${getJijangganHTML(pillars.hour.zhi_idx, dayMasterGanIdx)}
                                 <span class="pillar-god" style="font-size: 0.75rem; padding: 0.1rem 0.3rem;">${getGod(pillars, pillars.hour, 'zhi', dayMasterGanIdx, myElementIdx, myPolarity)}</span>
                             </div>
                             <!-- 일주 -->
                             <div class="pillar-card" style="padding: 0.8rem 0.2rem; border-color: ${accentColor}; background: rgba(255,255,255,0.05);">
                                 <span class="pillar-header" style="font-size: 0.75rem; color: ${accentColor};">일주</span>
                                 <span class="pillar-god" style="font-size: 0.75rem; padding: 0.1rem 0.3rem; background: ${accentColor}; color: #000; font-weight:800;">나</span>
-                                <span class="pillar-stem ${pillars.day.gan_element}-color" style="font-size: 1.8rem;">${pillars.day.gan}</span>
-                                <span class="pillar-branch ${pillars.day.zhi_element}-color" style="font-size: 1.8rem;">${pillars.day.zhi}</span>
+                                <span class="pillar-stem ${pillars.day.gan_element}-color" style="font-size: 1.4rem;">${pillars.day.gan}</span>
+                                <span class="pillar-branch ${pillars.day.zhi_element}-color" style="font-size: 1.4rem;">${pillars.day.zhi}</span>
+                                ${getJijangganHTML(pillars.day.zhi_idx, dayMasterGanIdx)}
                                 <span class="pillar-god" style="font-size: 0.75rem; padding: 0.1rem 0.3rem;">${getGod(pillars, pillars.day, 'zhi', dayMasterGanIdx, myElementIdx, myPolarity)}</span>
                             </div>
                             <!-- 월주 -->
                             <div class="pillar-card" style="padding: 0.8rem 0.2rem;">
                                 <span class="pillar-header" style="font-size: 0.75rem;">월주</span>
                                 <span class="pillar-god" style="font-size: 0.75rem; padding: 0.1rem 0.3rem;">${getGod(pillars, pillars.month, 'gan', dayMasterGanIdx, myElementIdx, myPolarity)}</span>
-                                <span class="pillar-stem ${pillars.month.gan_element}-color" style="font-size: 1.8rem;">${pillars.month.gan}</span>
-                                <span class="pillar-branch ${pillars.month.zhi_element}-color" style="font-size: 1.8rem;">${pillars.month.zhi}</span>
+                                <span class="pillar-stem ${pillars.month.gan_element}-color" style="font-size: 1.4rem;">${pillars.month.gan}</span>
+                                <span class="pillar-branch ${pillars.month.zhi_element}-color" style="font-size: 1.4rem;">${pillars.month.zhi}</span>
+                                ${getJijangganHTML(pillars.month.zhi_idx, dayMasterGanIdx)}
                                 <span class="pillar-god" style="font-size: 0.75rem; padding: 0.1rem 0.3rem;">${getGod(pillars, pillars.month, 'zhi', dayMasterGanIdx, myElementIdx, myPolarity)}</span>
                             </div>
                             <!-- 년주 -->
                             <div class="pillar-card" style="padding: 0.8rem 0.2rem;">
                                 <span class="pillar-header" style="font-size: 0.75rem;">년주</span>
                                 <span class="pillar-god" style="font-size: 0.75rem; padding: 0.1rem 0.3rem;">${getGod(pillars, pillars.year, 'gan', dayMasterGanIdx, myElementIdx, myPolarity)}</span>
-                                <span class="pillar-stem ${pillars.year.gan_element}-color" style="font-size: 1.8rem;">${pillars.year.gan}</span>
-                                <span class="pillar-branch ${pillars.year.zhi_element}-color" style="font-size: 1.8rem;">${pillars.year.zhi}</span>
+                                <span class="pillar-stem ${pillars.year.gan_element}-color" style="font-size: 1.4rem;">${pillars.year.gan}</span>
+                                <span class="pillar-branch ${pillars.year.zhi_element}-color" style="font-size: 1.4rem;">${pillars.year.zhi}</span>
+                                ${getJijangganHTML(pillars.year.zhi_idx, dayMasterGanIdx)}
                                 <span class="pillar-god" style="font-size: 0.75rem; padding: 0.1rem 0.3rem;">${getGod(pillars, pillars.year, 'zhi', dayMasterGanIdx, myElementIdx, myPolarity)}</span>
                             </div>
                         </div>
@@ -1813,7 +1855,7 @@
             };
 
             return `
-                <div class="glass-card">
+                <div class="glass-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(192, 132, 252, 0.08); padding: 1.8rem;">
                     <h3 class="card-title" style="color:#2dd4bf; margin-bottom: 0.5rem;"><i class="fa-solid fa-people-arrows"></i> 우주적 궤도 대비국</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">두 분의 사주 팔자를 나란히 대조하여 우주적 동조 현상을 관찰합니다.</p>
                     <div class="saju-dual-grid">
